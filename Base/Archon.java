@@ -1,6 +1,6 @@
 package Base;
 import battlecode.common.*;
-import static methods.Methods.*;
+import static utils.Methods.*;
 
 /**
  * Package <test0>, Mins_2017 Project
