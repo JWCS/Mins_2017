@@ -28,7 +28,10 @@ public strictfp class RobotPlayer {
                 code = new Archon();
                 break;
             case GARDENER:
-                code = new Gardener();
+                if((rc.readBroadcast(0) & 1) == 0) // Is a farmer
+                    code = new Farmer();
+                else
+                    code = new Builder();
                 break;
             case SOLDIER:
                 code = new Soldier();

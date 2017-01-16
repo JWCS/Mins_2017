@@ -13,7 +13,9 @@ public class RobotCode extends RobotConstants{
     public static RobotController rc = RobotPlayer.rc;
 
     int roundNum;
-
+    MapLocation origin;
+    Team team;
+    int bcID;
 
     // Abstract run method
 
@@ -34,6 +36,10 @@ public class RobotCode extends RobotConstants{
     public RobotCode() throws GameActionException { // Default Constructor required for subclasses
         // Any initializations
         roundNum = rc.getRoundNum();
+        team = rc.getTeam();
+        bcID = rc.getID();
+        MapLocation rawOrigin = rc.getInitialArchonLocations(team)[0];
+        origin = new MapLocation((float)Math.floor(rawOrigin.x), (float)Math.floor(rawOrigin.y));
     }
 
 }
