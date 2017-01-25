@@ -36,24 +36,24 @@ class Archon extends RobotCode{
         while (true) {
             try {
                 // Get basic data
-                bullets = rc.getTeamBullets();
-                // Bullet Evade Code
-
-                // Decision Matrix // Execute self-actions, and write new myDir, toBuildDir, broadcast orders
-                // Allocate resources
-                vpConvert(); // Convert Excess bullets
-                if(roundNum < EARLY_END && roundsTillHire <= 0){
-                    if( farmers > 5 && builders < 2){
-                        chooseBuildBuilder();
-                    }else if( farmers - stableFarmers < 2 && farmers < 32){
-                        chooseBuildFarmer();
-                    }
-                }else if(roundNum > EARLY_END && roundsTillHire <= 0){
-                    if(farmers < 31 && builders - busyBuilders > 3){
-                        chooseBuildFarmer();
-                    }
-                }
-
+//                bullets = rc.getTeamBullets();
+//                // Bullet Evade Code
+//
+//                // Decision Matrix // Execute self-actions, and write new myDir, toBuildDir, broadcast orders
+//                // Allocate resources
+//                vpConvert(); // Convert Excess bullets
+//                if(roundNum < EARLY_END && roundsTillHire <= 0){
+//                    if( farmers > 5 && builders < 2){
+//                        chooseBuildBuilder();
+//                    }else if( farmers - stableFarmers < 2 && farmers < 32){
+//                        chooseBuildFarmer();
+//                    }
+//                }else if(roundNum > EARLY_END && roundsTillHire <= 0){
+//                    if(farmers < 31 && builders - busyBuilders > 3){
+//                        chooseBuildFarmer();
+//                    }
+//                }
+//
 
                 // Enforce Decisions
                 // Gardeners
@@ -118,26 +118,26 @@ class Archon extends RobotCode{
     }
 
     void vpConvert() throws GameActionException{
-        int bulletsToConvert = bullets < bulletTaxBase ? 0 : (int)(bullets * (baseTax + taxCurve*(bullets-bulletTaxBase)));
-        if(bulletsToConvert > 0){
-            float val = (float)(bulletsToConvert/10)*GameConstants.BULLET_EXCHANGE_RATE;
-            rc.donate(val);
-            bullets -= val * 10;
-        } // If they change exchange rate, this changes
+//        int bulletsToConvert = bullets < bulletTaxBase ? 0 : (int)(bullets * (baseTax + taxCurve*(bullets-bulletTaxBase)));
+//        if(bulletsToConvert > 0){
+//            float val = (float)(bulletsToConvert/10)*GameConstants.BULLET_EXCHANGE_RATE;
+//            rc.donate(val);
+//            bullets -= val * 10;
+//        } // If they change exchange rate, this changes
     }
 
-    void chooseBuildBuilder() throws GameActionException{
-        wantToBuildFarmer = false;
-        wantToBuildBuilder = true;
-        int assign = rc.readBroadcast(G_ASSIGN_CH0);
-        rc.broadcast(G_ASSIGN_CH0, assign & BUILDER_FLAG);
-    }
-
-    void chooseBuildFarmer() throws GameActionException{
-        wantToBuildFarmer = true;
-        wantToBuildBuilder = false;
-        int assign = rc.readBroadcast(G_ASSIGN_CH0);
-        rc.broadcast(G_ASSIGN_CH0, assign & FARMER_FLAG);
-    }
+//    void chooseBuildBuilder() throws GameActionException{
+//        wantToBuildFarmer = false;
+//        wantToBuildBuilder = true;
+//        int assign = rc.readBroadcast(G_ASSIGN_CH0);
+//        rc.broadcast(G_ASSIGN_CH0, assign & BUILDER_FLAG);
+//    }
+//
+//    void chooseBuildFarmer() throws GameActionException{
+//        wantToBuildFarmer = true;
+//        wantToBuildBuilder = false;
+//        int assign = rc.readBroadcast(G_ASSIGN_CH0);
+//        rc.broadcast(G_ASSIGN_CH0, assign & FARMER_FLAG);
+//    }
 
 }

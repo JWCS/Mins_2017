@@ -15,6 +15,7 @@ public class RobotCode extends RobotConstants{
     int roundNum;
     MapLocation origin;
     Team team;
+    Team enemy;
     int bcID;
 
     // Abstract run method
@@ -37,6 +38,7 @@ public class RobotCode extends RobotConstants{
         // Any initializations
         roundNum = rc.getRoundNum();
         team = rc.getTeam();
+        enemy = team.opponent();
         bcID = rc.getID();
         MapLocation rawOrigin = rc.getInitialArchonLocations(team)[0];
         origin = new MapLocation((float)Math.floor(rawOrigin.x), (float)Math.floor(rawOrigin.y));

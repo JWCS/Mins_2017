@@ -1,5 +1,6 @@
 package utils;
 import battlecode.common.MapLocation;
+import javafx.scene.shape.Arc;
 
 import java.util.Map;
 
@@ -30,8 +31,15 @@ public class ArcLoc{
         loc = new MapLocation(origin.x + X, origin.y + Y);
     }
 
+    public ArcLoc( MapLocation pos, MapLocation origin ){
+        this.origin = origin;
+        X = (byte)(pos.x + origin.x);
+        Y = (byte)(pos.y + origin.y);
+        loc = pos;
+    }
+
     public MapLocation getTrueLoc(){
-        return new MapLocation(X + origin.x, Y + origin.y);
+        return loc;
     }
 
 }
