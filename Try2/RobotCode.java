@@ -80,4 +80,13 @@ public class RobotCode {
         }
     }
 
+    MapLocation getEnemyLoc() throws GameActionException{
+        return new MapLocation((float)rc.readBroadcast(Constants.ENEMY_LOC_X_CH), (float)rc.readBroadcast(Constants.ENEMY_LOC_Y_CH));
+    }
+
+    void setEnemyLoc( int x, int y) throws GameActionException{
+        rc.broadcast(Constants.ENEMY_LOC_X_CH, x);
+        rc.broadcast(Constants.ENEMY_LOC_Y_CH, y);
+    }
+
 }

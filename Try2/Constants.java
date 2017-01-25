@@ -21,5 +21,7 @@ public class Constants {
     public static final int TANK_NEED_CH      = 18;
     public static final int TANK_NUM_CH       = 19;
 
+    public static final int ENEMY_LOC_X_CH      = 30;
+    public static final int ENEMY_LOC_Y_CH      = 31;
 
 }
