@@ -26,7 +26,7 @@ public class Tank extends RobotCode {
                 // Update for new round
                 Update();
                 // If dying, declare dead
-                checkDeath(Constants.JACK_NUM_CH);
+                checkDeath(Constants.TANK_NUM_CH);
                 // Update on nearby elements
                 enemies = rc.senseNearbyRobots(-1, them);
                 // Update enemy loc for team if found
@@ -97,27 +97,32 @@ public class Tank extends RobotCode {
                     if(eArchonsNo > 0){
                         target = eArchons[0].getLocation();
                         goTo(target);
-                        // if can attack, attack
+                        if(rc.canFirePentadShot())
+                            rc.firePentadShot(here.directionTo(target));
                         break priorities;
                     }else if(eGardenersNo > 0){
                         target = eGardeners[0].getLocation();
                         goTo(target, false);
-                        //
+                        if(rc.canFirePentadShot())
+                            rc.firePentadShot(here.directionTo(target));
                         break priorities;
                     }else if (eJacksNo > 0 && eJacks[0].getLocation().distanceTo(here) < 5 ){
                         target = here.add(eJacks[0].getLocation().directionTo(here));   // They can outrun, reduces damage
                         goTo(target);
-                        //
+                        if(rc.canFirePentadShot())
+                            rc.firePentadShot(here.directionTo(target).opposite()); // Target is negative dir of jack
                         break priorities;
                     }else if(eScoutsNo > 0 && eScouts[0].getLocation().distanceTo(here) < 4){
                         target = eScouts[0].getLocation();
                         goTo(target);
-                        //
+                        if(rc.canFirePentadShot())
+                            rc.firePentadShot(here.directionTo(target));
                         break priorities;
                     }else if(eSoldiersNo > 0) {
                         target = eSoldiers[0].getLocation();
                         goTo(target);
-                        //
+                        if(rc.canFirePentadShot())
+                            rc.firePentadShot(here.directionTo(target));
                         break priorities;
                     }else if(eTankNo > 0){      // Already pretty much ignore them- if winning, conflict good, if not, bad; cant prevent tho
                         Direction targetDir = here.directionTo(target);
@@ -128,6 +133,8 @@ public class Tank extends RobotCode {
                         else
                             goTo(here.add(badGuyDir.rotateLeftDegrees(120)));
                         // Fire at tank anyway, while running
+                        if(rc.canFirePentadShot())
+                            rc.firePentadShot(here.directionTo(eTanks[0].getLocation()));
                         break priorities;
                     }else{      // No enemies, go to enemy
                         // Enemy base is down
@@ -135,10 +142,13 @@ public class Tank extends RobotCode {
                         goTo(target);
                         // Just in case
                         enemies = rc.senseNearbyRobots(-1, them);
-                        //if(enemies.length > 0)  // && other conds
-                            // Fire at enemy
+                        if(enemies.length > 0 && rc.canFirePentadShot())
+                            rc.firePentadShot(here.directionTo(enemies[0].getLocation()));
                     }
                 }
+
+                // Clock.yield() makes the robot wait until the next turn, then it will perform this loop again
+                Clock.yield();
 
             }catch (Exception e){
                 System.out.println("Tank Exception");
