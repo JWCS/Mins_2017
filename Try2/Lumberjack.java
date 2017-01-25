@@ -6,8 +6,8 @@ import static utils.Methods.randomDirection;
 import static utils.Methods.tryMove;
 
 /**
- * Package <test0>, Mins_2017 Project
- * Created by JWCS on 1/10/17.
+ * Package <Try2>, Mins_2017 Project
+ * Created by JWCS on 1/25/2017.
  * The code implemented by the Lumberjack. Optimized or common methods from methods package.
  */
 @SuppressWarnings("unused")
@@ -38,6 +38,12 @@ public class Lumberjack extends RobotCode {
                 theirTrees = rc.senseNearbyTrees(-1, them);
                 enemies = rc.senseNearbyRobots(-1, them);
                 alliesInRange = rc.senseNearbyRobots(range, us);
+                // Update enemy loc for team if found
+                for(RobotInfo rob : enemies)
+                    if(rob.getType()==RobotType.ARCHON){
+                        setEnemyLoc(rob.getLocation());
+                        break;
+                    }
 
                 // Priority list: chase weak bots, avoid tanks & jacks, chop neutrals w/ robots, chop enemy trees, collect bullets
                 // And if near archon, chop neutral trees, very important

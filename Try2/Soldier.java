@@ -6,8 +6,8 @@ import static utils.Methods.randomDirection;
 import static utils.Methods.tryMove;
 
 /**
- * Package <test0>, Mins_2017 Project
- * Created by JWCS on 1/10/17.
+ * Package <Try2>, Mins_2017 Project
+ * Created by JWCS on 1/25/17.
  * The code implemented by the Soldier. Optimized or common methods from methods package.
  */
 @SuppressWarnings("unused")

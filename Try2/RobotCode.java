@@ -65,19 +65,27 @@ public class RobotCode {
         }
     }
 
-    void goTo(MapLocation goal) throws GameActionException {     // Bug algorithm 2
+    void goTo(MapLocation goal, boolean followTrees) throws GameActionException {     // Bug algorithm 2
         Direction dir = here.directionTo(goal);
 //        // Check future dirs: get things and sort by how off they are from path
 //        RobotInfo[] robots = rc.senseNearbyRobots();
 //        TreeInfo[] trees = rc.senseNearbyTrees(); Oops, this is actually for tanget bug
         BulletInfo[] bullets = rc.senseNearbyBullets();
         // Cue evasion?
-        while(rc.isCircleOccupiedExceptByThisRobot(here.add(dir, stride), radius))
-            dir.rotateLeftDegrees(10f);
-        if(rc.canMove(dir)){
+        if(!followTrees && (me==RobotType.TANK || me==RobotType.SCOUT))
+            for(int i = 0; i < 36 && !rc.isLocationOccupiedByRobot(here.add(dir,stride)); ++i)
+                dir.rotateLeftDegrees(10f);
+        else
+            for(int i = 0; !rc.isCircleOccupiedExceptByThisRobot(here.add(dir, stride), radius) && i < 36; ++i)
+                dir.rotateLeftDegrees(10f);
+        if(rc.canMove(dir)){ // Will return true for tank or scout onto tree
             rc.move(dir);
             here = rc.getLocation();
         }
+    }
+
+    void goTo(MapLocation goal) throws GameActionException{
+        goTo(goal, true);
     }
 
     MapLocation getEnemyLoc() throws GameActionException{
@@ -87,6 +95,11 @@ public class RobotCode {
     void setEnemyLoc( int x, int y) throws GameActionException{
         rc.broadcast(Constants.ENEMY_LOC_X_CH, x);
         rc.broadcast(Constants.ENEMY_LOC_Y_CH, y);
+    }
+
+    void setEnemyLoc( MapLocation loc ) throws GameActionException{
+        rc.broadcast(Constants.ENEMY_LOC_X_CH, (int)loc.x);
+        rc.broadcast(Constants.ENEMY_LOC_Y_CH, (int)loc.y);
     }
 
 }
