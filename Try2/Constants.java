@@ -23,5 +23,14 @@ public class Constants {
 
     public static final int ENEMY_LOC_X_CH      = 30;
     public static final int ENEMY_LOC_Y_CH      = 31;
+    public static final int ENEMY_ID_CH         = 32;
+    public static final int ENEMY_2_LOC_X_CH    = 33;
+    public static final int ENEMY_2_LOC_Y_CH    = 34;
+    public static final int ENEMY_2_ID_CH       = 35;
+    public static final int ENEMY_3_LOC_X_CH    = 36;
+    public static final int ENEMY_3_LOC_Y_CH    = 37;
+    public static final int ENEMY_3_ID_CH       = 38;
+    public static final int ENEMY_ARCHONS_ALIVE = 39;
+
 
 }
